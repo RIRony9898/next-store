@@ -1,12 +1,35 @@
+"use client";
+
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const Navbar = () => {
-    const links = <>
-     <li><Link href={'/'} className="text-lg font-medium">Home</Link></li>
-     <li><Link href={'/products'} className="text-lg font-medium">Products</Link></li>
-     <li><Link href={'/features'} className="text-lg font-medium">Features</Link></li>
-     <li><Link href={'/about-us'} className="text-lg font-medium">About us</Link></li>
+  const { data: session } = useSession();
+  const links = (
+    <>
+      <li>
+        <Link href={"/"} className="text-lg font-medium">
+          Home
+        </Link>
+      </li>
+      <li>
+        <Link href={"/products"} className="text-lg font-medium">
+          Products
+        </Link>
+      </li>
+      <li>
+        <Link href={"/features"} className="text-lg font-medium">
+          Features
+        </Link>
+      </li>
+      <li>
+        <Link href={"/about-us"} className="text-lg font-medium">
+          About us
+        </Link>
+      </li>
     </>
+  );
+
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">
@@ -33,19 +56,50 @@ const Navbar = () => {
               tabIndex="-1"
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-             {links}
+              {links}
             </ul>
           </div>
-          <Link href={'/'} className="text-2xl font-semibold">Next Store</Link>
+          <Link href={"/"} className="text-2xl font-semibold">
+            Next Store
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-           {links}
-          </ul>
+          <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end gap-3">
-          <Link href={'/login'} className="btn">Log In</Link>
-          <Link href={'/register'} className="btn">Sign up</Link>
+          {!session ? (
+            <>
+              <Link href={"/login"} className="btn">
+                Log In
+              </Link>
+              <Link href={"/register"} className="btn">
+                Sign up
+              </Link>
+            </>
+          ) : (
+            <div className="relative group">
+              <button className="px-3 py-1 bg-gray-800 text-white rounded">
+                {session.user.name}
+              </button>
+              <div className="hidden group-hover:block absolute right-0 mt-2 bg-white border rounded shadow">
+                <Link href="/dashboard/add-product" className="block px-4 py-2">
+                  Add Product
+                </Link>
+                <Link
+                  href="/dashboard/manage-products"
+                  className="block px-4 py-2"
+                >
+                  Manage Products
+                </Link>
+                <button
+                  onClick={() => signOut()}
+                  className="block w-full text-left px-4 py-2 text-red-600"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
