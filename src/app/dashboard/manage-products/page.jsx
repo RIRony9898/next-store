@@ -1,7 +1,7 @@
-'use client'
-import { useState, useEffect } from "react";
-import Link from "next/link";
+"use client";
 import Protected from "@/components/ProtectedWrapper";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function ManageProducts() {
   const [products, setProducts] = useState([]);
@@ -34,7 +34,7 @@ export default function ManageProducts() {
       const res = await fetch(`/api/products?id=${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
-        setProducts(products.filter(p => p._id !== id));
+        setProducts(products.filter((p) => p._id !== id));
       } else {
         setErrorMsg("Failed to delete product");
       }
@@ -63,13 +63,15 @@ export default function ManageProducts() {
               </tr>
             </thead>
             <tbody>
-              {products.map(p => (
+              {products.map((p) => (
                 <tr key={p._id} className="text-center border-b">
                   <td className="p-2">{p._id.slice(-6)}</td>
                   <td className="p-2">{p.title}</td>
                   <td className="p-2">${p.price}</td>
                   <td className="p-2 flex justify-center gap-3">
-                    <Link href={`/items/${p._id}`} className="text-blue-600">View</Link>
+                    <Link href={`/products/${p._id}`} className="text-blue-600">
+                      View
+                    </Link>
                     <button
                       onClick={() => handleDelete(p._id)}
                       className="text-red-600"
