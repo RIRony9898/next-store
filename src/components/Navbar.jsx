@@ -6,6 +6,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/outline";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -103,8 +104,15 @@ const Navbar = () => {
           </div>
           <Link
             href={"/"}
-            className="text-3xl font-bold text-white hover:text-yellow-300 transition-colors duration-300 transform hover:scale-110"
+            className="flex items-center text-3xl font-bold text-white hover:text-yellow-300 transition-colors duration-300 transform hover:scale-110"
           >
+            <Image
+              src="/logo.png"
+              alt="Next Store Logo"
+              className="w-10 h-10 mr-3"
+              width={40}
+              height={40}
+            />
             Next Store
           </Link>
         </div>

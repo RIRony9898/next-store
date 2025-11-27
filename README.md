@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+https://next-store-lemon.vercel.app/# Next Store
 
-## Getting Started
+## Short Project Description
 
-First, run the development server:
+Next Store is a modern e-commerce platform built with Next.js 16, featuring user authentication via NextAuth, product management with MongoDB, and a responsive UI styled with Tailwind CSS and DaisyUI. It includes features like user registration, login, product listing, individual product pages, and a dashboard for managing products.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Live Demo
+
+Visit the live website at: [https://next-store-lemon.vercel.app/](https://next-store-lemon.vercel.app/)
+
+## Folder Structure
+
+```
+next-store/
+├── .gitignore
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── tailwind.config.js
+├── public/
+│   └── logo.png
+└── src/
+    ├── app/
+    │   ├── favicon.ico
+    │   ├── globals.css
+    │   ├── layout.js
+    │   ├── page.js
+    │   ├── (Auth)/
+    │   │   ├── login/
+    │   │   │   ├── layout.jsx
+    │   │   │   └── page.js
+    │   │   └── register/
+    │   │       ├── layout.jsx
+    │   │       └── page.jsx
+    │   ├── about-us/
+    │   │   ├── layout.jsx
+    │   │   └── page.jsx
+    │   ├── api/
+    │   │   ├── auth/
+    │   │   │   └── [...nextauth]/
+    │   │   │       └── route.jsx
+    │   │   ├── products/
+    │   │   │   └── route.jsx
+    │   │   └── users/
+    │   │       └── register/
+    │   │           └── route.jsx
+    │   ├── dashboard/
+    │   │   ├── add-product/
+    │   │   │   └── page.jsx
+    │   │   ├── edit-product/
+    │   │   │   └── [id]/
+    │   │   │       └── page.jsx
+    │   │   └── manage-products/
+    │   │       └── page.jsx
+    │   ├── features/
+    │   │   ├── layout.jsx
+    │   │   └── page.jsx
+    │   └── products/
+    │       ├── layout.jsx
+    │       ├── page.jsx
+    │       └── [id]/
+    │           └── page.jsx
+    ├── components/
+    │   ├── Footer.jsx
+    │   ├── Navbar.jsx
+    │   ├── ProtectedWrapper.jsx
+    │   ├── Providers.jsx
+    │   ├── home/
+    │   │   ├── Banner.jsx
+    │   │   ├── CallToAction.jsx
+    │   │   ├── Categories.jsx
+    │   │   ├── Features.jsx
+    │   │   └── Testimonials.jsx
+    │   └── products/
+    │       └── ItemCard.jsx
+    └── lib/
+        └── mongodb.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup & Installation Instructions
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. **Clone the repository:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone <repository-url>
+   cd next-store
+   ```
 
-## Learn More
+2. **Install dependencies:**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set up environment variables:**
+   Create a `.env.local` file in the root directory and add the following variables:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - `MONGODB_URI`: Your MongoDB connection string
+   - `NEXTAUTH_SECRET`: A secret key for NextAuth
+   - `NEXTAUTH_URL`: The base URL of your application (e.g., http://localhost:3000 for development)
 
-## Deploy on Vercel
+4. **Run the development server:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+5. **Build for production:**
+   ```bash
+   npm run build
+   npm start
+   ```
+
+## Route Summary
+
+### Public Routes
+
+- `/` : Home page with banner, features, categories, testimonials, and call-to-action sections
+- `/about-us` : About us page
+- `/products` : Products listing page
+- `/products/[id]` : Individual product detail page
+- `/features` : Features page
+
+### Authentication Routes
+
+- `/register` : User registration page
+- `/login` : User login page
+
+### Protected Dashboard Routes
+
+- `/dashboard/add-product` : Add new product (requires authentication)
+- `/dashboard/manage-products` : Manage existing products (requires authentication)
+- `/dashboard/edit-product/[id]` : Edit a specific product (requires authentication)
+
+### API Routes
+
+- `/api/auth/[...nextauth]` : Handles authentication (login, logout, session management)
+- `/api/products` : CRUD operations for products
+- `/api/users/register` : User registration endpoint
