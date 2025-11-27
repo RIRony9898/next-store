@@ -29,3 +29,34 @@ export async function DELETE(req) {
   await db.collection("products").deleteOne({ _id: new ObjectId(id) });
   return NextResponse.json({ success: true });
 }
+
+export async function PUT(req) {
+  const client = await clientPromise;
+  const db = client.db("nextjs_app");
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+  const { title, description, fullDescription, price, image } =
+    await req.json();
+  if (!title || !price)
+    return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+  const { ObjectId } = await import("mongodb");
+  const result = await db
+    .collection("products")
+    .updateOne(
+      { _id: new ObjectId(id) },
+      {
+        $set: {
+          title,
+          description,
+          fullDescription,
+          price: Number(price),
+          image,
+          updatedAt: new Date(),
+        },
+      }
+    );
+  if (result.matchedCount === 0) {
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  }
+  return NextResponse.json({ success: true });
+}

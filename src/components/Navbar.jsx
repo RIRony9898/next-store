@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  ArrowRightOnRectangleIcon,
+  CogIcon,
+  PlusIcon,
+} from "@heroicons/react/24/outline";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -127,23 +132,26 @@ const Navbar = () => {
               <button className="px-4 py-2 bg-white text-purple-600 rounded-full font-semibold hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 shadow-lg">
                 {session.user.name}
               </button>
-              <div className="hidden group-hover:block absolute right-0 mt-2 bg-white border rounded-lg shadow-xl animate-fade-in">
+              <div className="hidden group-hover:block absolute right-0 mt-2 bg-linear-to-r from-purple-600 via-pink-500 to-red-500 text-white border rounded-lg shadow-2xl transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2.5 opacity-0 group-hover:opacity-100">
                 <Link
                   href="/dashboard/add-product"
-                  className="block px-4 py-2 hover:bg-purple-50 transition-colors"
+                  className="flex items-center px-4 py-3 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 rounded-t-lg"
                 >
+                  <PlusIcon className="w-5 h-5 mr-2" />
                   Add Product
                 </Link>
                 <Link
                   href="/dashboard/manage-products"
-                  className="block px-4 py-2 hover:bg-purple-50 transition-colors"
+                  className="flex items-center px-4 py-3 hover:bg-white/20 transition-all duration-300 transform hover:scale-105"
                 >
+                  <CogIcon className="w-5 h-5 mr-2" />
                   Manage Products
                 </Link>
                 <button
                   onClick={() => signOut()}
-                  className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition-colors"
+                  className="flex items-center w-full text-left px-4 py-3 text-white hover:bg-red-500/20 transition-all duration-300 transform hover:scale-105 rounded-b-lg"
                 >
+                  <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" />
                   Logout
                 </button>
               </div>

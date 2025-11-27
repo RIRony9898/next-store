@@ -144,6 +144,12 @@ export default function ManageProducts() {
                             >
                               View
                             </Link>
+                            <Link
+                              href={`/dashboard/edit-product/${p._id}`}
+                              className="px-4 py-2 bg-green-500/20 text-green-300 rounded-lg hover:bg-green-500/30 transition-all duration-300 transform hover:scale-105 border border-green-500/30"
+                            >
+                              Edit
+                            </Link>
                             <button
                               onClick={() => handleDelete(p._id)}
                               className="px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 transition-all duration-300 transform hover:scale-105 border border-red-500/30"
